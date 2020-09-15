@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 /**
- * PasswordChecker Class
+ * PasswordCheckerUtility Class
  * @author steum
  *
  */
@@ -170,7 +170,7 @@ public final class PasswordCheckerUtility {
 	 * @return true if weak, false otherwise
 	 * @throws WeakPasswordException
 	 */
-	public static boolean isWeakPassword(String passwordString) throws WeakPasswordException {
+	public static boolean isWeakPassword(String passwordString) throws WeakPasswordException{
 		boolean weak=false;
 		if(passwordString.length()>=6 && passwordString.length()<=9) {
 			weak=true;

@@ -1,6 +1,16 @@
-
+/**
+ * Notation class
+ * @author steum
+ *
+ */
 public class Notation {
-	
+	/**
+	 * Performs arithmetic calculation between two variables
+	 * @param first string variable to be parsed as double for calculation
+	 * @param second string variable to be parsed as double for calculation
+	 * @param op operator to use in calculation
+	 * @return result of calculation
+	 */
 	private static double operation(String first, String second,char op) {
 		double result=0,fir,sec;
 		switch(op) {
@@ -33,6 +43,13 @@ public class Notation {
 		}	
 		return result;
 	}
+	
+	/**
+	 * convert a postfix expression to an infix expression
+	 * @param postfix expression to convert to infix
+	 * @return converted infix expression
+	 * @throws InvalidNotationFormatException
+	 */
 	public static String convertPostfixToInfix(String postfix) throws InvalidNotationFormatException {
 		String infix;
 		String top;
@@ -72,6 +89,13 @@ public class Notation {
 		}
 		return infixStack.toString();
 	}
+	
+	/**
+	 * converts an infix expression to a postfix expression
+	 * @param infix expression to convert
+	 * @return converted postfix expression
+	 * @throws InvalidNotationFormatException
+	 */
 	public static String convertInfixToPostfix(String infix) throws InvalidNotationFormatException {
 		
 		NotationStack<String> postfixStack=new NotationStack<String>(10);
@@ -130,6 +154,13 @@ public class Notation {
 		}
 		return postfixQueue.toString();
 	}
+	
+	/**
+	 * performs calculation of postfix expression
+	 * @param postfixExpr postfix expression to evaluate
+	 * @return result of evaluation
+	 * @throws InvalidNotationFormatException
+	 */
 	public static double evaluatePostfixExpression(String postfixExpr) throws InvalidNotationFormatException {
 		String first, second;
 		double result=0;
@@ -173,6 +204,13 @@ public class Notation {
 					
 		return result;
 	}
+	
+	/**
+	 * performs calculations of infix expression
+	 * @param infixExpr infix expression to evaluate
+	 * @return result of evaluation
+	 * @throws InvalidNotationFormatException
+	 */
 	public static double evaluateInfixExpression(String infixExpr) throws InvalidNotationFormatException {
 		double result=0;
 		result=evaluatePostfixExpression(convertInfixToPostfix(infixExpr));

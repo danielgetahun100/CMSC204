@@ -14,7 +14,7 @@ public class NotationQueue<T> implements QueueInterface<T> {
 	int front, end,items=0;
 	
 	public NotationQueue(){
-		sizeOfQueue=5;
+		sizeOfQueue=100;
 		queue=new ArrayList<T> (sizeOfQueue);
 	}
 	
@@ -29,7 +29,7 @@ public class NotationQueue<T> implements QueueInterface<T> {
 	 */
 	@Override
 	public boolean isEmpty() {
-		if (items==0)
+		if (items!=0)
 			return false;
 		else 
 			return true;
@@ -53,15 +53,16 @@ public class NotationQueue<T> implements QueueInterface<T> {
 	 */
 	@Override
 	public T dequeue() throws QueueUnderflowException {
+		T dequeueElement;
 		if(items==0) {
 			throw new QueueUnderflowException();
 		}
 		else {
-			queue.set(front, null);
+			dequeueElement=queue.get(front);
 			front++;
 			items--;
 		}
-		return queue.get(front);
+		return dequeueElement;
 	}
 
 	/**
@@ -113,8 +114,13 @@ public class NotationQueue<T> implements QueueInterface<T> {
 	@Override
 	public String toString(String delimiter) {
 		String queueString="";
-		for(T i:queue ) {
-			queueString+=i+delimiter;
+		for(int i=0;i<queue.size();i++ ){
+			if(i!=queue.size()-1) {
+				queueString+=queue.get(i)+delimiter;
+			}
+			else {
+				queueString+=queue.get(i);
+			}
 		}
 		return queueString;
 	}
@@ -128,6 +134,7 @@ public class NotationQueue<T> implements QueueInterface<T> {
 	public void fill(ArrayList<T> list) {
 		ArrayList<T> queueCopy=new ArrayList<T>(list);
 		queue.addAll(queueCopy);
+		items=queue.size();
 		
 	}
 

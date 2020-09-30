@@ -13,7 +13,7 @@ public class NotationStack<T> implements StackInterface<T> {
 	int items=0;
 	
 	public NotationStack(){
-		sizeOfStack=5;
+		sizeOfStack=100;
 		stack=new ArrayList<T> (sizeOfStack);
 	}
 	
@@ -40,7 +40,7 @@ public class NotationStack<T> implements StackInterface<T> {
 	 */
 	@Override
 	public boolean isFull() {
-		if (items==stack.size())
+		if (items==sizeOfStack)
 			return true;
 		else 
 			return false;
@@ -129,8 +129,13 @@ public class NotationStack<T> implements StackInterface<T> {
 	@Override
 	public String toString(String delimiter) {
 		String stackString="";
-		for(T i:stack ) {
-			stackString+=i+delimiter;
+		for(int i=0;i<stack.size();i++ ) {
+			if(i!=stack.size()-1) {
+				stackString+=stack.get(i)+delimiter;
+			}
+			else {
+				stackString+=stack.get(i);
+			}
 		}
 		return stackString;
 	}
@@ -144,6 +149,7 @@ public class NotationStack<T> implements StackInterface<T> {
 	public void fill(ArrayList<T> list) {
 		ArrayList<T> listCopy=new ArrayList<T>(list);
 		stack.addAll(listCopy);
+		items=stack.size();
 		
 	}
 

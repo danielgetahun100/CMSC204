@@ -80,11 +80,9 @@ public class Notation {
 			}
 		}
 		catch(StackOverflowException d) {
-			System.out.println(d.getMessage());
 			d.printStackTrace();
 		}
 		catch(StackUnderflowException s) {
-			System.out.println(s.getMessage());
 			s.printStackTrace();
 		}
 		return infixStack.toString();
@@ -98,8 +96,8 @@ public class Notation {
 	 */
 	public static String convertInfixToPostfix(String infix) throws InvalidNotationFormatException {
 		
-		NotationStack<String> postfixStack=new NotationStack<String>(10);
-		NotationQueue<String> postfixQueue=new NotationQueue<String>(10);
+		NotationStack<String> postfixStack=new NotationStack<String>(20);
+		NotationQueue<String> postfixQueue=new NotationQueue<String>(20);
 		char[] temp=infix.toCharArray();
 		
 		try {
@@ -114,42 +112,63 @@ public class Notation {
 					
 					postfixStack.push(String.valueOf(temp[i]));
 				}
-				if(temp[i]=='+'||temp[i]=='-'||temp[i]=='/'||temp[i]=='*') {
-					if(temp[i]=='+'||temp[i]=='-') {
-						while(postfixStack.top()=="*"||postfixStack.top()=="/"||postfixStack.top()=="+"||postfixStack.top()=="-") {
+				
+				if(temp[i]=='+') {
+					if(!postfixStack.isEmpty()) {
+						while(postfixStack.top().equals("+")||postfixStack.top().equals("-")||postfixStack.top().equals("*")||postfixStack.top().equals("/")) {
 							postfixQueue.enqueue(postfixStack.pop());
 						}
 					}
-					else {
-						while(postfixStack.top()=="*"||postfixStack.top()=="/") {
-							postfixQueue.enqueue(postfixStack.pop());
-						}
-					}
+					postfixStack.push(String.valueOf(temp[i]));
 				}
-				if(!postfixStack.isEmpty()&&temp[i]==')') {
-					while(postfixStack.top()!="(") {
+				if(temp[i]=='-') {
+					if(!postfixStack.isEmpty()) {
+						while(postfixStack.top().equals("+")||postfixStack.top().equals("-")||postfixStack.top().equals("*")||postfixStack.top().equals("/")) {
+							postfixQueue.enqueue(postfixStack.pop());
+						}
+					}
+					postfixStack.push(String.valueOf(temp[i]));
+				}
+				if(temp[i]=='/') {
+					if(!postfixStack.isEmpty()) {
+						while(postfixStack.top().equals("*")||postfixStack.top().equals("/")) {
+							postfixQueue.enqueue(postfixStack.pop());
+						}
+					}
+					postfixStack.push(String.valueOf(temp[i]));
+				}
+				if(temp[i]=='*') {
+					if(!postfixStack.isEmpty()) {
+						while(postfixStack.top().equals("*")||postfixStack.top().equals("/")) {
+							postfixQueue.enqueue(postfixStack.pop());
+						}
+					}
+					postfixStack.push(String.valueOf(temp[i]));
+				}
+				if(temp[i]==')') {
+					while(!postfixStack.isEmpty()&&!postfixStack.top().equals("(")) {
 						postfixQueue.enqueue(postfixStack.pop());
 					}
-					if(postfixStack.top()!="(") {
+					if(postfixStack.isEmpty()||!postfixStack.top().equals("(")) {
 						throw new InvalidNotationFormatException();
 					}
 					
+					if(!postfixStack.isEmpty()&&postfixStack.top().equals("(")){
+						postfixStack.pop();
+					}
 				}
 			}
-			while(postfixStack.top()=="+"||postfixStack.top()=="-"||postfixStack.top()=="*"||postfixStack.top()=="/") {
+			while(!postfixStack.isEmpty()&&!postfixStack.top().equals("(")) {
 				postfixQueue.enqueue(postfixStack.pop());
 			}
 		}
 		catch(QueueOverflowException e) {
-			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		catch(StackOverflowException d) {
-			System.out.println(d.getMessage());
 			d.printStackTrace();
 		}
 		catch(StackUnderflowException s) {
-			System.out.println(s.getMessage());
 			s.printStackTrace();
 		}
 		return postfixQueue.toString();
@@ -193,11 +212,9 @@ public class Notation {
 			}
 		}
 		catch(StackOverflowException d) {
-			System.out.println(d.getMessage());
 			d.printStackTrace();
 		}
 		catch(StackUnderflowException s) {
-			System.out.println(s.getMessage());
 			s.printStackTrace();
 		}
 		

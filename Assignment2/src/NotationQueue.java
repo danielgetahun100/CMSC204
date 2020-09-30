@@ -16,13 +16,11 @@ public class NotationQueue<T> implements QueueInterface<T> {
 	public NotationQueue(){
 		sizeOfQueue=5;
 		queue=new ArrayList<T> (sizeOfQueue);
-		Collections.fill(queue, (T)"-1");
 	}
 	
 	public NotationQueue(int size) {
 		sizeOfQueue=size;
 		queue=new ArrayList<T> (sizeOfQueue);
-		Collections.fill(queue, (T)"-1");
 	}
 	
 	/**
@@ -31,13 +29,7 @@ public class NotationQueue<T> implements QueueInterface<T> {
 	 */
 	@Override
 	public boolean isEmpty() {
-		int count=0;
-		for(int i=0;i<queue.size();i++) {
-			if(queue.get(i)!="-1") {
-				count++;
-			}
-		}
-		if (count==0)
+		if (items==0)
 			return false;
 		else 
 			return true;
@@ -49,13 +41,7 @@ public class NotationQueue<T> implements QueueInterface<T> {
 	 */
 	@Override
 	public boolean isFull() {
-		int count=0;
-		for(int i=0;i<queue.size();i++) {
-			if(queue.get(i)!="-1") {
-				count++;
-			}
-		}
-		if (count==sizeOfQueue)
+		if (items==sizeOfQueue)
 			return true;
 		else 
 			return false;

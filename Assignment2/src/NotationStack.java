@@ -10,19 +10,16 @@ public class NotationStack<T> implements StackInterface<T> {
 	
 	private int sizeOfStack;
 	private ArrayList<T>stack;
-	int topStack=0;
 	int items=0;
 	
 	public NotationStack(){
 		sizeOfStack=5;
 		stack=new ArrayList<T> (sizeOfStack);
-		Collections.fill(stack, (T)"-1");
 	}
 	
 	public NotationStack(int size) {
 		sizeOfStack=size;
 		stack=new ArrayList<T> (sizeOfStack);
-		Collections.fill(stack, (T)"-1");
 	}
 
 	/**
@@ -31,16 +28,10 @@ public class NotationStack<T> implements StackInterface<T> {
 	 */
 	@Override
 	public boolean isEmpty() {
-		int count=0;
-		for(int i=0;i<stack.size();i++) {
-			if(stack.get(i)!="-1") {
-				count++;
-			}
-		}
-		if (count==0)
-			return false;
-		else 
+		if (items==0)
 			return true;
+		else 
+			return false;
 	}
 
 	/**
@@ -49,13 +40,7 @@ public class NotationStack<T> implements StackInterface<T> {
 	 */
 	@Override
 	public boolean isFull() {
-		int count=0;
-		for(int i=0;i<stack.size();i++) {
-			if(stack.get(i)!="-1") {
-				count++;
-			}
-		}
-		if (count==stack.size())
+		if (items==stack.size())
 			return true;
 		else 
 			return false;
@@ -85,7 +70,7 @@ public class NotationStack<T> implements StackInterface<T> {
 	 */
 	@Override
 	public T top() throws StackUnderflowException {
-		if(items<0) {
+		if(items==0) {
 			throw new StackUnderflowException();
 		}
 		else {
@@ -111,7 +96,7 @@ public class NotationStack<T> implements StackInterface<T> {
 	public boolean push(T e) throws StackOverflowException {
 		if(items>=sizeOfStack) {
 			throw new StackOverflowException();
-		}
+			}
 		else {
 			stack.add(e);
 			items++;
